@@ -10,6 +10,7 @@ import {
   Col,
   Space,
 } from "antd";
+import { Link } from "react-router-dom";
 
 const layout = {
   labelCol: { span: 4 },
@@ -108,9 +109,16 @@ const CreateMember: React.FC = () => {
           </Row>
 
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
+            <Space>
+              <Link to="/members">
+                <Button type="primary" htmlType="submit" ghost>
+                  Back
+                </Button>
+              </Link>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Space>
           </Form.Item>
         </Form>
       </Card>
