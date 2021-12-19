@@ -21,9 +21,9 @@ router.get("/members", async (req, res) => {
       },
     },
   ];
-  const members = await Member.aggregate(memberAggregate);
+  const data = await Member.aggregate(memberAggregate);
 
-  res.json({ status: "success", members });
+  res.json({ status: "success", data });
 });
 
 router.post("/members", async (req, res) => {

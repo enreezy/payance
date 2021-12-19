@@ -6,10 +6,15 @@ import thunk from "redux-thunk";
 import App from "./components/App";
 import { BrowserRouter } from "react-router-dom";
 import "antd/dist/antd.css";
+import allReducers from "./reducers/index";
+
+const store = createStore(allReducers, applyMiddleware(thunk));
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );

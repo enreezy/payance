@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table, Tag, Space, Breadcrumb, Button } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import * as actionCreators from "../../actions/members";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../reducers";
 
 const columns = [
   {
@@ -87,6 +91,18 @@ const data = [
 ];
 
 const Members: React.FC = () => {
+  const state = useSelector((state: RootState) => state.member);
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  const { getMembers } = bindActionCreators(actionCreators, dispatch);
+
+  useEffect(() => {
+    getMembers();
+  }, []);
+
+  console.log(state);
+
   return (
     <>
       <Breadcrumb style={{ margin: "16px 0" }}>

@@ -3,8 +3,8 @@ const router = express.Router();
 const Role = require("../../database/model/Role");
 
 router.get("/roles", async (req, res) => {
-  const roles = await Role.find();
-  res.json({ status: "success", roles });
+  const data = await Role.find();
+  res.json({ status: "success", data });
 });
 
 router.post("/roles", async (req, res) => {

@@ -13,8 +13,8 @@ router.get("/schedules", async (req, res) => {
       },
     },
   ];
-  const schedules = await Schedule.aggregate(schedAggregation);
-  res.json({ status: "success", schedules });
+  const data = await Schedule.aggregate(schedAggregation);
+  res.json({ status: "success", data });
 });
 
 router.post("/schedules", async (req, res) => {

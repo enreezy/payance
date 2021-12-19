@@ -3,8 +3,8 @@ const router = express.Router();
 const Department = require("../../database/model/Department");
 
 router.get("/departments", async (req, res) => {
-  const departments = await Department.find();
-  res.json({ status: "success", departments });
+  const data = await Department.find();
+  res.json({ status: "success", data });
 });
 
 router.post("/departments", async (req, res) => {
