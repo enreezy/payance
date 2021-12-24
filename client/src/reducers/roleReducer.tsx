@@ -1,16 +1,16 @@
-import { Action, GET_MEMBERS } from "../actions/types";
+import { Action, GET_ROLE } from "../actions/types";
 
 const initialState = {
-  members: [],
+  roles: [],
   loading: false,
 };
 
 export default function (state: any = initialState, action: Action) {
   switch (action.type) {
-    case GET_MEMBERS:
+    case GET_ROLE:
       return {
         ...state,
-        members: action.payload,
+        roles: action.payload,
         loading: false,
       };
     default:

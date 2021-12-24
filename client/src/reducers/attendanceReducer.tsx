@@ -1,16 +1,16 @@
-import { Action, GET_MEMBERS } from "../actions/types";
+import { Action, GET_ATTENDANCES } from "../actions/types";
 
 const initialState = {
-  members: [],
+  attendances: [],
   loading: false,
 };
 
 export default function (state: any = initialState, action: Action) {
   switch (action.type) {
-    case GET_MEMBERS:
+    case GET_ATTENDANCES:
       return {
         ...state,
-        members: action.payload,
+        attendances: action.payload,
         loading: false,
       };
     default:

@@ -6,17 +6,30 @@ import * as actionCreators from "../../actions/members";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers";
 
+interface Department {
+  name: String;
+}
+
+interface Role {
+  name: String;
+}
+
 const columns = [
   {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
+    title: "ID",
+    dataIndex: "ID",
+    key: "id",
     render: (text: string) => <a>{text}</a>,
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
+    title: "First Name",
+    dataIndex: "firstName",
+    key: "firstName",
+  },
+  {
+    title: "Last Name",
+    dataIndex: "lastName",
+    key: "lastName",
   },
   {
     title: "Address",
@@ -24,19 +37,43 @@ const columns = [
     key: "address",
   },
   {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (tags: any[]) => (
+    title: "Department",
+    key: "department",
+    dataIndex: "department",
+    render: (department?: any[]) => (
       <>
-        {tags.map((tag: string) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
+        {department?.map((tag: Department, i: any) => {
+          let color = Object.keys(tag).length > 5 ? "geekblue" : "green";
+          if (tag.name === "IT") {
+            color = "green";
+          } else {
             color = "volcano";
           }
           return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
+            <Tag color={color} key={i}>
+              {tag.name.toUpperCase()}
+            </Tag>
+          );
+        })}
+      </>
+    ),
+  },
+  {
+    title: "Role",
+    key: "role",
+    dataIndex: "role",
+    render: (role: any[]) => (
+      <>
+        {role?.map((tag: Role, i: any) => {
+          let color = Object.keys(tag).length > 5 ? "geekblue" : "green";
+          if (tag.name === "IT") {
+            color = "green";
+          } else {
+            color = "volcano";
+          }
+          return (
+            <Tag color={color} key={i}>
+              {tag.name.toUpperCase()}
             </Tag>
           );
         })}
@@ -66,30 +103,6 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-];
-
 const Members: React.FC = () => {
   const state = useSelector((state: RootState) => state.member);
   const dispatch = useDispatch();
@@ -101,7 +114,20 @@ const Members: React.FC = () => {
     getMembers();
   }, []);
 
-  console.log(state);
+  const newData = [];
+  if (state.members && state.members?.data?.length > 0) {
+    state.members.data.map((member: any, i: any) => {
+      newData.push({
+        id: member._id,
+        key: i,
+        firstName: member.firstName,
+        lastName: member.lastName,
+        address: member.address,
+        department: member.department,
+        role: member.role,
+      });
+    });
+  }
 
   return (
     <>
@@ -115,7 +141,7 @@ const Members: React.FC = () => {
         </Button>
       </Link>
 
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={newData} />
     </>
   );
 };

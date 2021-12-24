@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Table, Tag, Space, Breadcrumb, Button } from "antd";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import * as actionCreators from "../../actions/roles";
+import * as actionCreators from "../../actions/departments";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../reducers";
 
@@ -40,24 +40,24 @@ const columns = [
   },
 ];
 
-const Role: React.FC = () => {
-  const state = useSelector((state: RootState) => state.role);
+const Department: React.FC = () => {
+  const state = useSelector((state: RootState) => state.department);
   const dispatch = useDispatch();
 
-  const { getRoles } = bindActionCreators(actionCreators, dispatch);
+  const { getDepartments } = bindActionCreators(actionCreators, dispatch);
 
   useEffect(() => {
-    getRoles();
+    getDepartments();
   }, []);
 
   const newData = [];
-  if (state.roles && state.roles?.data?.length > 0) {
-    state.roles.data.map((role: any, i: any) => {
+  if (state.departments && state.departments?.data?.length > 0) {
+    state.departments.data.map((department: any, i: any) => {
       newData.push({
-        id: role._id,
+        id: department._id,
         key: i,
-        name: role.name,
-        date: role.dateAdded,
+        name: department.name,
+        date: department.dateAdded,
       });
     });
   }
@@ -66,7 +66,7 @@ const Role: React.FC = () => {
     <>
       <Breadcrumb style={{ margin: "16px 0" }}>
         <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>Roles</Breadcrumb.Item>
+        <Breadcrumb.Item>Departments</Breadcrumb.Item>
       </Breadcrumb>
       <Link to="/members/create">
         <Button type="primary" style={{ float: "right", marginBottom: "15px" }}>
@@ -79,4 +79,4 @@ const Role: React.FC = () => {
   );
 };
 
-export default Role;
+export default Department;

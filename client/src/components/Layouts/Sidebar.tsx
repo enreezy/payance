@@ -28,16 +28,16 @@ const Sidebar: React.FC = () => {
           <Link to="/members">Members</Link>
         </Menu.Item>
         <Menu.Item key="3" icon={<PlusCircleOutlined />}>
-          <Link to="/attendance">Attendance</Link>
+          <Link to="/attendances">Attendance</Link>
         </Menu.Item>
         <Menu.Item key="5" icon={<PlusCircleOutlined />}>
-          <Link to="/schedule">Schedule</Link>
+          <Link to="/schedules">Schedule</Link>
         </Menu.Item>
         <Menu.Item key="6" icon={<PlusCircleOutlined />}>
-          <Link to="/schedule">Department</Link>
+          <Link to="/departments">Department</Link>
         </Menu.Item>
         <Menu.Item key="7" icon={<PlusCircleOutlined />}>
-          <Link to="/schedule">Role</Link>
+          <Link to="/roles">Role</Link>
         </Menu.Item>
         <Menu.Item key="8" icon={<PlusCircleOutlined />}>
           <Link to="/reports">Reports</Link>

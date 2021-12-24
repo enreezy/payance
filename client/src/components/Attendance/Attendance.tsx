@@ -1,43 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table, Tag, Space, Breadcrumb, Button } from "antd";
 import { Link } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import * as actionCreators from "../../actions/attendances";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../reducers";
 
 const columns = [
   {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-    render: (text: string) => <a>{text}</a>,
+    title: "Time In",
+    dataIndex: "timeIn",
+    key: "timeIn",
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
+    title: "Time Out",
+    dataIndex: "timeOut",
+    key: "timeOut",
   },
   {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
+    title: "First Name",
+    dataIndex: "firstName",
+    key: "firstName",
   },
   {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (tags: any[]) => (
-      <>
-        {tags.map((tag: string) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    title: "Last Name",
+    dataIndex: "lastName",
+    key: "lastName",
+  },
+  {
+    title: "Actual Time In",
+    dataIndex: "actualTimeIn",
+    key: "actualTimeIn",
+  },
+  {
+    title: "Actual Time Out",
+    dataIndex: "actualTimeOut",
+    key: "actualTimeOut",
   },
   {
     title: "Action",
@@ -62,31 +60,35 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-];
-
 const Attendance: React.FC = () => {
+  const state = useSelector((state: RootState) => state.attendance);
+  const dispatch = useDispatch();
+
+  const { getAttendances } = bindActionCreators(actionCreators, dispatch);
+
+  useEffect(() => {
+    getAttendances();
+  }, []);
+
+  const newData = [];
+  if (state.attendances && state.attendances?.data?.length > 0) {
+    state.attendances.data.map((attendance: any, i: any) => {
+      newData.push({
+        id: attendance._id,
+        key: i,
+        firstName: attendance.members.firstName,
+        lastName: attendance.members.lastName,
+        timeIn: attendance.schedule.timeIn,
+        timeOut: attendance.schedule.timeOut,
+        actualTimeIn: attendance.timeIn,
+        actualTimeOut: attendance.timeOut,
+      });
+    });
+  }
+
+  console.log(state);
+  console.log(newData);
+
   return (
     <>
       <Breadcrumb style={{ margin: "16px 0" }}>
@@ -99,7 +101,7 @@ const Attendance: React.FC = () => {
         </Button>
       </Link>
 
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={newData} />
     </>
   );
 };
