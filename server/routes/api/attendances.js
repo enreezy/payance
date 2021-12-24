@@ -13,6 +13,12 @@ router.get("/attendances", async (req, res) => {
       },
     },
     {
+      $unwind: {
+        path: "$members",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
       $lookup: {
         from: "schedules",
         localField: "scheduleId",
@@ -20,9 +26,15 @@ router.get("/attendances", async (req, res) => {
         as: "schedule",
       },
     },
+    {
+      $unwind: {
+        path: "$schedule",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
   ];
-  const attendances = await Attendance.aggregate(schedAggregation);
-  res.json({ status: "success", attendances });
+  const data = await Attendance.aggregate(schedAggregation);
+  res.json({ status: "success", data });
 });
 
 router.post("/attendances", async (req, res) => {

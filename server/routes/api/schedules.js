@@ -9,7 +9,13 @@ router.get("/schedules", async (req, res) => {
         from: "members",
         localField: "memberId",
         foreignField: "_id",
-        as: "members",
+        as: "member",
+      },
+    },
+    {
+      $unwind: {
+        path: "$member",
+        preserveNullAndEmptyArrays: true,
       },
     },
   ];
