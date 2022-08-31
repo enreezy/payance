@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { Table, Tag, Space, Breadcrumb, Button } from "antd";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import * as actionCreators from "../../actions/attendances";
+import * as actionCreators from "../../../actions/schedules";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../reducers";
+import { RootState } from "../../../reducers";
 
 const columns = [
   {
@@ -23,19 +23,9 @@ const columns = [
     key: "firstName",
   },
   {
-    title: "Last Name",
+    title: "Last name",
     dataIndex: "lastName",
     key: "lastName",
-  },
-  {
-    title: "Actual Time In",
-    dataIndex: "actualTimeIn",
-    key: "actualTimeIn",
-  },
-  {
-    title: "Actual Time Out",
-    dataIndex: "actualTimeOut",
-    key: "actualTimeOut",
   },
   {
     title: "Action",
@@ -53,51 +43,46 @@ const columns = [
       }
     ) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
+        <a>Edit</a>
         <a>Delete</a>
       </Space>
     ),
   },
 ];
 
-const Attendance: React.FC = () => {
-  const state = useSelector((state: RootState) => state.attendance);
+const Schedule: React.FC = () => {
+  const state = useSelector((state: RootState) => state.schedule);
   const dispatch = useDispatch();
 
-  const { getAttendances } = bindActionCreators(actionCreators, dispatch);
+  const { getSchedules } = bindActionCreators(actionCreators, dispatch);
 
   useEffect(() => {
-    getAttendances();
+    getSchedules();
   }, []);
 
   const newData = [];
-  if (state.attendances && state.attendances?.data?.length > 0) {
-    state.attendances.data.map((attendance: any, i: any) => {
+  if (state.schedules && state.schedules?.data?.length > 0) {
+    state.schedules.data.map((schedule: any, i: any) => {
       newData.push({
-        id: attendance._id,
+        id: schedule._id,
         key: i,
-        firstName: attendance.members.firstName,
-        lastName: attendance.members.lastName,
-        timeIn: attendance.schedule.timeIn,
-        timeOut: attendance.schedule.timeOut,
-        actualTimeIn: attendance.timeIn,
-        actualTimeOut: attendance.timeOut,
+        firstName: schedule.member.firstName,
+        lastName: schedule.member.lastName,
+        timeIn: schedule.timeIn,
+        timeOut: schedule.timeOut,
       });
     });
   }
-
-  console.log(state);
-  console.log(newData);
 
   return (
     <>
       <Breadcrumb style={{ margin: "16px 0" }}>
         <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>Attence</Breadcrumb.Item>
+        <Breadcrumb.Item>Schedule</Breadcrumb.Item>
       </Breadcrumb>
-      <Link to="/members/create">
+      <Link to="/schedules/create">
         <Button type="primary" style={{ float: "right", marginBottom: "15px" }}>
-          Enter New Attendance
+          Add Schedule
         </Button>
       </Link>
 
@@ -106,4 +91,4 @@ const Attendance: React.FC = () => {
   );
 };
 
-export default Attendance;
+export default Schedule;

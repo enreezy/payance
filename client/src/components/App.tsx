@@ -6,6 +6,7 @@ import Navbar from "./Layouts/Navbar.tsx";
 // @ts-ignore
 import Sidebar from "./Layouts/Sidebar.tsx";
 import Routes from "../routes";
+import "../style/global-variables.scss";
 interface Props {}
 
 const App: React.FC<Props> = () => {
@@ -19,15 +20,8 @@ const App: React.FC<Props> = () => {
         <Sider width={200} className="site-layout-background">
           <Sidebar />
         </Sider>
-        <Layout style={{ padding: "0 24px 24px" }}>
-          <Content
-            className="site-layout-background"
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-            }}
-          >
+        <Layout className="layout">
+          <Content className="site-layout-background content">
             <Routes />
           </Content>
         </Layout>

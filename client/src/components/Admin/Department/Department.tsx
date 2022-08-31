@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { Table, Tag, Space, Breadcrumb, Button } from "antd";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import * as actionCreators from "../../actions/departments";
+import * as actionCreators from "../../../actions/departments";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../reducers";
+import { RootState } from "../../../reducers";
 
 const columns = [
   {
@@ -33,7 +33,6 @@ const columns = [
       }
     ) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
         <a>Delete</a>
       </Space>
     ),

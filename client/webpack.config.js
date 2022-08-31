@@ -28,8 +28,10 @@ module.exports = {
       assets: path.resolve(__dirname, "src/assets/"),
       config: path.resolve(__dirname, "src/config/"),
       actions: path.resolve(__dirname, "src/actions/"),
+      reducers: path.resolve(__dirname, "src/reducers/"),
       members: path.resolve(__dirname, "src/members/"),
       routes: path.resolve(__dirname, "src/routes/"),
+      style: path.resolve(__dirname, "src/style/"),
     },
   },
   module: {

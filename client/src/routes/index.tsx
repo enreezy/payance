@@ -1,20 +1,22 @@
 import React from "react";
 // Members
-import Members from "../components/Members/Members";
-import CreateMember from "../components/Members/components/CreateMember";
+import Members from "../components/Admin/Members/Members";
+import CreateMember from "../components/Admin/Members/components/CreateMember";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import Dashboard from "../components/Dashboard/Dashboard";
-import Attendance from "../components/Attendance/Attendance";
-import Schedule from "../components/Schedule/Schedule";
-import Department from "../components/Department/Department";
-import Roles from "../components/Roles/Roles";
-import CreateSchedule from "../components/Schedule/components/CreateSchedule";
+import Dashboard from "../components/Admin/Dashboard/Dashboard";
+import Attendance from "../components/Admin/Attendance/Attendance";
+import Schedule from "../components/Admin/Schedule/Schedule";
+import Department from "../components/Admin/Department/Department";
+import Roles from "../components/Admin/Roles/Roles";
+import CreateSchedule from "../components/Admin/Schedule/components/CreateSchedule";
+import UpdateMember from "../components/Admin/Members/components/UpdateMember";
 
 export default () => (
   <Switch>
     <Route exact path="/" component={Dashboard} />
     <Route exact path="/members" component={Members} />
-    <Route exact path="/members/create" component={CreateMember} />
+    <Route path="/members/create" component={CreateMember} />
+    <Route path="/members/edit" component={UpdateMember} />
     <Route exact path="/attendances" component={Attendance} />
     <Route exact path="/schedules" component={Schedule} />
     <Route exact path="/schedules/create" component={CreateSchedule} />

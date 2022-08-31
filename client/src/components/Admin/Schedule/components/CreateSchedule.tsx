@@ -13,9 +13,9 @@ import {
 import { Link } from "react-router-dom";
 import { Select } from "antd";
 import { bindActionCreators } from "redux";
-import * as actionCreators from "../../../actions/members";
+import * as actionCreators from "../../../../actions/members";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../reducers";
+import { RootState } from "../../../../reducers";
 
 const { Option } = Select;
 

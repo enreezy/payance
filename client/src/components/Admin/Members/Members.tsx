@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { Table, Tag, Space, Breadcrumb, Button } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import * as actionCreators from "../../actions/members";
+import * as actionCreators from "../../../actions/members";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../reducers";
+import { RootState } from "../../../reducers";
 
 interface Department {
   name: String;
@@ -96,7 +96,16 @@ const columns = [
       }
     ) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
+        <Link
+          to={{
+            pathname: "/members/edit",
+            state: {
+              id: text.id,
+            },
+          }}
+        >
+          Edit
+        </Link>
         <a>Delete</a>
       </Space>
     ),
